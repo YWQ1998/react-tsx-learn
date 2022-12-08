@@ -125,16 +125,18 @@ function AppRouter() {
               </Link>
             ))}
           </div>
-          <Routes>
-            {/* <Routes path="/first" component={First}></Routes> */}
-            {mainRouters.map((r: IRoute) => (
-              <Route
-                path={r.path}
-                key={r.path}
-                element={<r.component />}
-              ></Route>
-            ))}
-          </Routes>
+          <div className="page-contain-route">
+            <Routes>
+              {/* <Routes path="/first" component={First}></Routes> */}
+              {mainRouters.map((r: IRoute) => (
+                <Route
+                  path={r.path}
+                  key={r.path}
+                  element={<r.component />}
+                ></Route>
+              ))}
+            </Routes>
+          </div>
         </div>
       </div>
     </Router>
