@@ -3,12 +3,13 @@
  * @Author: YinWQ
  * @Date: 2022-12-07 09:38:33
  * @LastEditors: YinWQ
- * @LastEditTime: 2022-12-08 15:13:09
+ * @LastEditTime: 2022-12-08 16:47:13
  */
-import { ReactNode } from "react";
+import { lazy, ReactNode } from "react";
 import baseTypePage from "../Pages/01_tsLearPage/01_baseTypePage";
 import Home from "../Pages/Home";
 import TestChartPage from "../Pages/03_react_echart/01_test";
+// const TestChartPage = lazy(() => import("../Pages/03_react_echart/01_test"));
 export interface IRoute {
   exact?: boolean;
   path: string;
