@@ -3,11 +3,12 @@
  * @Author: YinWQ
  * @Date: 2022-12-07 09:38:33
  * @LastEditors: YinWQ
- * @LastEditTime: 2022-12-08 09:56:15
+ * @LastEditTime: 2022-12-08 15:13:09
  */
 import { ReactNode } from "react";
 import baseTypePage from "../Pages/01_tsLearPage/01_baseTypePage";
 import Home from "../Pages/Home";
+import TestChartPage from "../Pages/03_react_echart/01_test";
 export interface IRoute {
   exact?: boolean;
   path: string;
@@ -27,6 +28,11 @@ const mainRouters: Array<IRoute> = [
     path: "/ts/baseType",
     // component: () => import("../Pages/01_tsLearPage/01_baseTypePage"),
     component: baseTypePage,
+  },
+  {
+    title: 'chart 图表',
+    path: '/chart/test',
+    component: TestChartPage,
   },
 ];
 export { mainRouters };
