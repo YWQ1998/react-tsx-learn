@@ -3,7 +3,7 @@
  * @Author: YinWQ
  * @Date: 2022-12-07 13:32:20
  * @LastEditors: YinWQ
- * @LastEditTime: 2022-12-08 10:43:24
+ * @LastEditTime: 2022-12-09 08:26:59
  */
 import { useCallback, useEffect, useState } from "react";
 export interface windowSizeObj {
@@ -27,7 +27,7 @@ const useWinSize = (): windowSizeObj => {
     return () => {
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  },);
   return size;
 };
 export default useWinSize;

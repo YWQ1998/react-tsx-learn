@@ -1,0 +1,74 @@
+// APP 样式
+* {
+  font-size: 16px;
+}
+@navigateHeight: 32px;
+@navigateLeft: 200px;
+@containTabsHeight: 20px;
+// 界面布局
+.my-app-view {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .view-navigate-top {
+    width: 100%;
+    height: @navigateHeight;
+    background-color: #0000ff;
+    padding: 1px;
+  }
+  .view-navigate-left {
+    flex: 0 0 auto;
+    // width: @navigateLeft;
+    height: calc(100% - @navigateHeight);
+    background-color: #0080ff;
+  }
+  .view-contain {
+    flex: 1 1 auto;
+    width: calc(100% - @navigateLeft);
+
+    .view-contain-tabs {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: @containTabsHeight;
+      box-sizing: border-box;
+      border-bottom: 1px solid #ccc;
+      background-color: #dadada;
+    }
+    .view-contain-routes {
+      height: calc(100% - @containTabsHeight);
+      background-color: #e8e8e8;
+    }
+  }
+}
+
+// tab 条样式
+.tabs-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: @containTabsHeight;
+  height: @containTabsHeight;
+  background-color: #00ffff;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 1px;
+  &:nth-child(1){
+    margin-left: 1px;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+  .tabs-item-title {
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .tabs-item-close {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+  }
+}

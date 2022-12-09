@@ -1,77 +1,21 @@
-// import React from 'react';
-// import './App.css';
-// // import HelloFunCom from './Components-function/HelloFunCom';
-// import HelloClassCom from './Components-class/HelloClassCom';
-
-// // reducer 状态管理
-// import { createStore } from "redux";
-// import { enthusiasm } from "./redux/reducers/index";
-// import { StoreState } from "./types";
-// import * as action from "./redux/actions"
-// import Hello from "./redux/containers/HelloContainer";
-// import { Provider } from "react-redux";
-
-// const store = createStore<StoreState, action.EnthusiasmAction, {}, never>(
-//   enthusiasm,
-//   {
-//     languageName: "TypeScript",
-//     enthusiasmLevel: 4,
-//   }
-// );
-// function App() {
-//   return (
-//     <>
-//       <div>app</div>
-//       <div>
-//         {/* 函数组件 */}
-//         {/* <HelloFunCom name="黎明" enthusiasmLevel={12} /> */}
-//         {/* 状态管理 实例 */}
-//         <Provider store={store}>
-//           <Hello />
-//         </Provider>
-//       </div>
-//       <div>
-//         {/* 类组件 */}
-//         <HelloClassCom name="小明" enthusiasmLevel={10} />
-//       </div>
-//     </>
-//   );
-// }
-
-// export default App;
-// import React, { Component, Suspense } from "react";
-// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-// import { mainRouters } from "./config/router";
-// export default class View extends Component {
-//   render() {
-//     return (
-//       <>
-//         <Suspense fallback={<>loading ...</>}>
-//           <Router>
-//             {mainRouters.map((r) => (
-//               <Link to={r.path} key={r.path}>
-//                 {r.title}
-//               </Link>
-//             ))}
-//             <Routes>
-//               {mainRouters.map((r) => (
-//                 <Route path={r.path} key={r.path} element={r.component}></Route>
-//               ))}
-//             </Routes>
-//           </Router>
-//         </Suspense>
-//       </>
-//     );
-//   }
-// }
-
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Routes, Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { mainRouters } from "./config/router";
 import { IRoute } from "./config/router";
 import useWinSize from "./utils/hooks/useWinSize";
+import React, { useState } from "react";
+import { getRoutes } from "./utils/routeUtils";
+import { Button, Icon, Menu } from "choerodon-ui/pro/lib";
 import "./App.css";
-import { useState } from "react";
+import "./AppView.less";
+import SubMenu from "choerodon-ui/lib/menu/SubMenu";
+import { ButtonType } from "choerodon-ui/lib/button";
+import getMenus from "./utils/menuUtils";
+
 function AppRouter() {
+  // react-router-dom 路由转跳传参 三剑客
+  // const location = useLocation();
+  const navigate = useNavigate();
+  // const params = useParams();
   const [recordRouter, setRecordRouter] = useState<Array<IRoute>>([
     mainRouters[0],
   ]);
@@ -85,61 +29,68 @@ function AppRouter() {
     if (flag < 0) {
       setRecordRouter([...recordRouter, route]);
     }
+    // 路由转跳
+    navigate(route.path);
   };
   const handleCloseTab = (route: IRoute) => {
     const result = recordRouter.filter((item) => item !== route);
     setRecordRouter(result);
+    // 返回首页
+    navigate(mainRouters[0].path);
   };
+
+  const [collapsed, setCollapsed] = useState(false);
+  const [navigateLeftWidth, setNavigateLeftWidth] = useState({width: '150px'});
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed)
+    collapsed ? setNavigateLeftWidth({ width: "150px" }) : setNavigateLeftWidth({width: '79px'});
+  };
+
   return (
-    <Router>
+    <div>
       <div
         className="my-app-view"
         style={{ width: size.width, height: size.height }}
       >
+        <div className="view-navigate-top">
+          <Button onClick={toggleCollapsed}>
+            <Icon type={collapsed ? "folder_open" : "folder"} />
+          </Button>
+        </div>
         {/* 路由入口 */}
-        <div className="menu-dom-left">
-          {mainRouters.map((r: IRoute) => (
-            <Link className="menu-item" to={r.path} key={r.path}>
-              <div onClick={() => handleSelect(r)}>{r.title}</div>
-            </Link>
-          ))}
+        <div className="view-navigate-left" style={navigateLeftWidth}>
+          <Menu mode="inline" inlineCollapsed={collapsed}>
+            {getMenus(mainRouters, handleSelect)}
+          </Menu>
         </div>
         {/* 路由出口 */}
-        <div className="page-contain-right">
-          <div className="menu-dom-top">
+        <div className="view-contain">
+          <div className="view-contain-tabs">
             {recordRouter.map((r, index) => (
-              <Link className="tag-menu-dom" to={r.path} key={r.path}>
-                <div className="tag-menu-title" onClick={() => handleSelect(r)}>
-                  {r.title}
+              <div className="tabs-item">
+                <div
+                  className="tabs-item-title"
+                  onClick={() => handleSelect(r)}
+                >
+                  {index === 0 ? <Icon type="home" /> : r.title}
                 </div>
                 {index !== 0 && (
-                  <Link
-                    to="/home"
-                    className="tag-menu-title"
-                    key={r.path}
+                  <div
+                    className="tabs-item-close"
                     onClick={() => handleCloseTab(r)}
                   >
-                    X
-                  </Link>
+                    <Icon type="close" />
+                  </div>
                 )}
-              </Link>
+              </div>
             ))}
           </div>
-          <div className="page-contain-route">
-            <Routes>
-              {/* <Routes path="/first" component={First}></Routes> */}
-              {mainRouters.map((r: IRoute) => (
-                <Route
-                  path={r.path}
-                  key={r.path}
-                  element={<r.component />}
-                ></Route>
-              ))}
-            </Routes>
+          <div className="view-contain-routes">
+            <Routes>{getRoutes(mainRouters)}</Routes>
           </div>
         </div>
       </div>
-    </Router>
+    </div>
   );
 }
 
