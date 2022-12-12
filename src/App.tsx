@@ -1,4 +1,4 @@
-import { Routes, Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Routes, useNavigate } from "react-router-dom";
 import { mainRouters } from "./config/router";
 import { IRoute } from "./config/router";
 import useWinSize from "./utils/hooks/useWinSize";
@@ -7,8 +7,6 @@ import { getRoutes } from "./utils/routeUtils";
 import { Button, Icon, Menu } from "choerodon-ui/pro/lib";
 import "./App.css";
 import "./AppView.less";
-import SubMenu from "choerodon-ui/lib/menu/SubMenu";
-import { ButtonType } from "choerodon-ui/lib/button";
 import getMenus from "./utils/menuUtils";
 
 function AppRouter() {

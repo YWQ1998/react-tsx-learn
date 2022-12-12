@@ -3,15 +3,14 @@
  * @Author: YinWQ
  * @Date: 2022-12-07 09:38:33
  * @LastEditors: YinWQ
- * @LastEditTime: 2022-12-09 15:16:05
+ * @LastEditTime: 2022-12-12 15:38:39
  */
-import { ReactNode } from "react";
 import baseTypePage from "../Pages/01_tsLearPage/01_baseTypePage";
 import Home from "../Pages/Home";
 import TestChartPage from "../Pages/03_react_echart/01_test";
 // const TestChartPage = lazy(() => import("../Pages/03_react_echart/01_test"));
 import HelloClassCom from "../Components-class/HelloClassCom";
-import HelloFunCom from "../Components-function/HelloFunCom";
+import HelloFunPage from "../Pages/02_react-page/01_HelloFunPage";
 export interface IRoute {
   exact?: boolean;
   path: string;
@@ -33,13 +32,13 @@ const mainRouters: Array<IRoute> = [
     children: [
       {
         title: "hello 类组件",
-        path: "/helloClass",
+        path: "/hello/helloClass",
         component: HelloClassCom,
       },
       {
         title: "hello 函数组件",
-        path: "/helloFun",
-        component: HelloFunCom,
+        path: "/hello/helloFun",
+        component: HelloFunPage,
       },
     ],
   },

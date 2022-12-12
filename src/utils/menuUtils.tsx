@@ -3,13 +3,13 @@
  * @Author: YinWQ
  * @Date: 2022-12-09 14:09:02
  * @LastEditors: YinWQ
- * @LastEditTime: 2022-12-09 15:12:09
+ * @LastEditTime: 2022-12-09 16:16:54
  */
 import SubMenu from "choerodon-ui/lib/menu/SubMenu";
 import { Icon, Menu } from "choerodon-ui/pro/lib";
 import { IRoute } from "../config/router";
 
-const getMenus = (routes: Array<IRoute>, selectMenu: any) => {
+const getMenus = (routes: Array<IRoute>, selectMenu: (route:IRoute) => void) => {
   let MenuItemList: Array<React.ReactElement> = Array<React.ReactElement>();
   if (routes.length > 0) {
     routes.forEach((item) => {
